@@ -1,0 +1,14 @@
+trial;author;year;TBpos1;TBneg1;TBpos0;TBneg0;allocation;abs.latitude;Location
+1;Aronson 1948;1948;4;119;11;128;random;44;Northern USA 1948
+2;Ferguson & Simes 1949;1949;6;300;29;274;random;55;Canada 1949
+3;Rosenthal et al 1960;1960;3;228;11;209;random;42;Chicago 1960
+4;Hart & Sutherland 1977;1977;62;13536;248;12619;random;52;UK 1977
+5;Frimont-Moller et al 1973;1973;33;5036;47;5761;alternate;13;Madanapalle 1973
+6;Stein & Aronson 1953;1953;180;1361;372;1079;alternate;44;Northern USA 1953
+7;Vandiviere et al 1973;1973;8;2537;10;619;random;19;Haiti 1973
+8;Madras 1980;1980;505;87886;499;87892;random;13;Madras 1980
+9;Coetzee & Berjak 1968;1968;29;7470;45;7232;random;27;South Africa 1968
+10;Rosenthal et al 1961;1961;17;1699;65;1600;systematic;42;Chicago 1961
+11;Comstock et al 1974;1974;186;50448;141;27197;systematic;18;Puerto Rico 1974
+12;Comstock & Webster 1969;1969;5;2493;3;2338;systematic;33;Georgia (Sch) 1969
+13;Comstock et al 1976;1976;27;16886;29;17825;systematic;33;Georgia (Comm) 1976
