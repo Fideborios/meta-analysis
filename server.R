@@ -127,26 +127,26 @@ escalculator <-  reactive({
     dat <- Dataset()
     slab = dat[,names(dat)== input$slab]
     if(input$EStype == "Dichotomous"){
-      ai = dat[,names(dat)== input$ai]
-      bi = dat[,names(dat)== input$bi]
-      ci = dat[,names(dat)== input$ci]
-      di = dat[,names(dat)== input$di]
-      n1i = dat[,names(dat)== input$n1i]
-      n2i = dat[,names(dat)== input$n2i]
+      ai =  as.numeric(dat[,names(dat)== input$ai])
+      bi =  as.numeric(dat[,names(dat)== input$bi])
+      ci =  as.numeric(dat[,names(dat)== input$ci])
+      di =  as.numeric(dat[,names(dat)== input$di])
+      n1i = as.numeric(dat[,names(dat)== input$n1i])
+      n2i = as.numeric(dat[,names(dat)== input$n2i])
     }
     if(input$EStype == "Event-Counts"){
-      x1i = dat[,names(dat)== input$x1i]
-      t1i = dat[,names(dat)== input$t1i]
-      x2i = dat[,names(dat)== input$x2i]
-      t2i = dat[,names(dat)== input$t2i]
+      x1i = as.numeric(dat[,names(dat)== input$x1i])
+      t1i = as.numeric(dat[,names(dat)== input$t1i])
+      x2i = as.numeric(dat[,names(dat)== input$x2i])
+      t2i = as.numeric(dat[,names(dat)== input$t2i])
     }
     if(input$EStype == "Continuous"){
-      m1 = dat[,names(dat)== input$m1]
-      m2 = dat[,names(dat)== input$m2]
-      sd1 = dat[,names(dat)== input$sd1]
-      sd2 = dat[,names(dat)== input$sd2]
-      mn1 = dat[,names(dat)== input$mn1]
-      mn2 = dat[,names(dat)== input$mn2]
+      m1 =  as.numeric(dat[,names(dat)== input$m1])
+      m2 =  as.numeric(dat[,names(dat)== input$m2])
+      sd1 = as.numeric(dat[,names(dat)== input$sd1])
+      sd2 = as.numeric(dat[,names(dat)== input$sd2])
+      mn1 = as.numeric(dat[,names(dat)== input$mn1])
+      mn2 = as.numeric(dat[,names(dat)== input$mn2])
     }
     
     if(input$ES == "Odds-ratio"){
