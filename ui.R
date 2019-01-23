@@ -120,7 +120,9 @@ navbarPage("Comparison of Statistical approaches for \n subgroup effect finding!
                                                            column(selectInput("m1i","the means (first group or time point) : ", "upload a  Dataset",width = "400px"),width = 2), 
                                                            column(selectInput("sd1i","the standard deviations (first group or time point): ", "upload a  Dataset",width = "400px"),width = 2),
                                                            column(selectInput("m2i","the means (second group or time point): ", "upload a  Dataset",width = "400px"),width = 2), 
-                                                           column(selectInput("sd2i","the standard deviations (second group or time point): ", "upload a  Dataset",width = "400px"),width = 2)
+                                                           column(selectInput("sd2i","the standard deviations (second group or time point): ", "upload a  Dataset",width = "400px"),width = 2), 
+                                                           column(selectInput("mn1i","Group size A (n1i):", "upload a  Dataset",width = "400px"),width = 2), 
+                                                           column(selectInput("mn2i","Group size B (n2i):", "upload a  Dataset",width = "400px"),width = 2)
                                                          )
                                          ),
                                 tabPanel("Meta-analysis output", 
