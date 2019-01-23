@@ -102,12 +102,12 @@ Dataset <- eventReactive(input$choice, {
     updateSelectInput(session, "t2i","the total person-times (second group):" , choices = c("choose", vars))
 
     # Event outcomes  
-    updateSelectInput(session, "m1i","the means (first group or time point): ", choices = c("choose", vars))
-    updateSelectInput(session, "m2i","the means (second group or time point):", choices = c("choose", vars))
-    updateSelectInput(session, "sd1i","the standard deviations (first group or time point):", choices = c("choose", vars))
-    updateSelectInput(session, "sd2i","the standard deviations (second group or time point):", choices = c("choose", vars))
-    updateSelectInput(session, "mn1i","Group size A (n1i):" , choices = c("choose", vars))
-    updateSelectInput(session, "mn2i","Group size B (n2i):" , choices = c("choose", vars))
+    updateSelectInput(session, "m1","the means (first group or time point): ", choices = c("choose", vars))
+    updateSelectInput(session, "m2","the means (second group or time point):", choices = c("choose", vars))
+    updateSelectInput(session, "sd1","the standard deviations (first group or time point):", choices = c("choose", vars))
+    updateSelectInput(session, "sd2","the standard deviations (second group or time point):", choices = c("choose", vars))
+    updateSelectInput(session, "mn1","Group size A (n1i):" , choices = c("choose", vars))
+    updateSelectInput(session, "mn2","Group size B (n2i):" , choices = c("choose", vars))
     
     return(Dataset)
   })
@@ -125,49 +125,59 @@ output$table <- renderTable({
 
 escalculator <-  reactive({
     dat <- Dataset()
-    ai = dat[,names(dat)== input$ai]
-    bi = dat[,names(dat)== input$bi]
-    ci = dat[,names(dat)== input$ci]
-    di = dat[,names(dat)== input$di]
-    n1i = dat[,names(dat)== input$n1i]
-    n2i = dat[,names(dat)== input$n2i]
-    x1i = dat[,names(dat)== input$x1i]
-    t1i = dat[,names(dat)== input$t1i]
-    x2i = dat[,names(dat)== input$x2i]
-    t2i = dat[,names(dat)== input$t2i]
-    m1i = dat[,names(dat)== input$m1i]
-    m2i = dat[,names(dat)== input$m2i]
-    sd1i = dat[,names(dat)== input$sd1i]
-    sd2i = dat[,names(dat)== input$sd2i]
-    mn1i = dat[,names(dat)== input$mn1i]
-    mn2i = dat[,names(dat)== input$mn2i]
     slab = dat[,names(dat)== input$slab]
-    
-    if(input$EStype == "Dichotomous" & input$ES == "Odds-ratio"){
-      ES = escalc(ai = ai,bi = bi,ci = ci,di = di,n2i = n2i,n1i =  n1i, measure = "OR", slab = slab)
-    }else  if(input$EStype == "Dichotomous" & input$ES == "Risk-ratio"){
-      ES = escalc(ai = ai,bi = bi,ci = ci,di = di,n2i = n2i,n1i =  n1i, measure = "RR", slab = slab)
-    }else  if(input$EStype == "Dichotomous" & input$ES == "Risk difference"){
-      ES = escalc(ai = ai,bi = bi,ci = ci,di = di,n2i = n2i,n1i =  n1i, measure = "RD", slab = slab)
-    }else  if(input$EStype == "Dichotomous" & input$ES == "Arcsine square root transformed risk difference"){
-      ES = escalc(ai = ai,bi = bi,ci = ci,di = di,n2i = n2i,n1i =  n1i, measure = "AS", slab = slab)
-    }else if(input$EStype == "Dichotomous" & input$ES == "PETO odds-ratio"){
-      ES = escalc(ai = ai,bi = bi,ci = ci,di = di,n2i = n2i,n1i =  n1i, measure = "PETO", slab = slab)
-    }else  if(input$EStype == "Event-Counts" & input$ES == "Incidence rate ratio"){
-      ES = escalc(x1i = x1i,t1i = t1i,x2i = x2i,t2i = t2i, measure = "IRR", slab = slab)
-    }else  if(input$EStype == "Event-Counts" & input$ES == "Incidence rate difference"){
-      ES = escalc(x1i = x1i,t1i = t1i,x2i = x2i,t2i = t2i, measure = "IRD", slab = slab)
-    }else  if(input$EStype == "Event-Counts" & input$ES == "Square root transformed incidence rate difference"){
-      ES = escalc(x1i = x1i,t1i = t1i,x2i = x2i,t2i = t2i, measure = "IRSD", slab = slab)
-    }else if(input$EStype == "Continuous" & input$ES == "Mean difference"){
-      ES = escalc(m1i = m1i,sd1i = sd1i,m2i = m2i,sd2i = sd2i,n1i = mn1i,n2i = mn2i,  measure = "MD", slab = slab)
-    }else if(input$EStype == "Continuous" & input$ES == "Standardized mean difference"){
-      ES = escalc(m1i = m1i,sd1i = sd1i,m2i = m2i,sd2i = sd2i,n1i = mn1i, n2i = mn2i, measure = "SMD", slab = slab)
-    }else if(input$EStype == "Continuous" & input$ES == "Standardized mean difference with heteroscedastic population variances"){
-      ES = escalc(m1i = m1i,sd1i = sd1i,m2i = m2i,sd2i = sd2i,n1i = mn1i, n2i = mn2i,  measure = "SMDH", slab = slab)
+    if(input$EStype == "Dichotomous"){
+      ai = dat[,names(dat)== input$ai]
+      bi = dat[,names(dat)== input$bi]
+      ci = dat[,names(dat)== input$ci]
+      di = dat[,names(dat)== input$di]
+      n1i = dat[,names(dat)== input$n1i]
+      n2i = dat[,names(dat)== input$n2i]
+    }
+    if(input$EStype == "Event-Counts"){
+      x1i = dat[,names(dat)== input$x1i]
+      t1i = dat[,names(dat)== input$t1i]
+      x2i = dat[,names(dat)== input$x2i]
+      t2i = dat[,names(dat)== input$t2i]
+    }
+    if(input$EStype == "Continuous"){
+      m1 = dat[,names(dat)== input$m1]
+      m2 = dat[,names(dat)== input$m2]
+      sd1 = dat[,names(dat)== input$sd1]
+      sd2 = dat[,names(dat)== input$sd2]
+      mn1 = dat[,names(dat)== input$mn1]
+      mn2 = dat[,names(dat)== input$mn2]
     }
     
-    return(ES = ES)
+    if(input$ES == "Odds-ratio"){
+      ES = escalc(ai = ai,bi = bi,ci = ci,di = di,n2i = n2i,n1i =  n1i, measure = "OR", slab = slab)
+    }else  if(input$ES == "Risk-ratio"){
+      ES = escalc(ai = ai,bi = bi,ci = ci,di = di,n2i = n2i,n1i =  n1i, measure = "RR", slab = slab)
+    }else  if(input$ES == "Risk difference"){
+      ES = escalc(ai = ai,bi = bi,ci = ci,di = di,n2i = n2i,n1i =  n1i, measure = "RD", slab = slab)
+    }else  if(input$ES == "Arcsine square root transformed risk difference"){
+      ES = escalc(ai = ai,bi = bi,ci = ci,di = di,n2i = n2i,n1i =  n1i, measure = "AS", slab = slab)
+    }else if(input$ES == "PETO odds-ratio"){
+      ES = escalc(ai = ai,bi = bi,ci = ci,di = di,n2i = n2i,n1i =  n1i, measure = "PETO", slab = slab)
+    }
+    
+    if(input$Inci.ES == "Incidence rate ratio"){
+      ES = escalc(x1i = x1i,t1i = t1i,x2i = x2i,t2i = t2i, measure = "IRR", slab = slab)
+    }else  if(input$Inci.ES == "Incidence rate difference"){
+      ES = escalc(x1i = x1i,t1i = t1i,x2i = x2i,t2i = t2i, measure = "IRD", slab = slab)
+    }else  if(input$Inci.ES == "Square root transformed incidence rate difference"){
+      ES = escalc(x1i = x1i,t1i = t1i,x2i = x2i,t2i = t2i, measure = "IRSD", slab = slab)
+    }
+    
+    if(input$Con.ES == "Mean difference"){
+      ES = escalc(m1i = m1,sd1i = sd1,m2i = m2,sd2i = sd2,n1i = mn1,n2i = mn2,  measure = "MD", slab = slab)
+    }else if(input$Con.ES == "Standardized mean difference"){
+      ES = escalc(m1i = m1,sd1i = sd1,m2i = m2,sd2i = sd2,n1i = mn1, n2i = mn2, measure = "SMD", slab = slab)
+    }else if(input$Con.ES == "Standardized mean difference with heteroscedastic population variances"){
+      ES = escalc(m1i = m1,sd1i = sd1,m2i = m2,sd2i = sd2,n1i = mn1, n2i = mn2,  measure = "SMDH", slab = slab)
+    }
+    ES
+
   })
 
 output$escalculator.summary <- renderTable({

@@ -101,9 +101,9 @@ navbarPage("Comparison of Statistical approaches for \n subgroup effect finding!
                                          ),
                                          conditionalPanel(
                                            condition = "input.EStype == 'Event-Counts'",
-                                           selectInput("ES", "Effect Estimate",
-                                              c("Incidence rate ratio"," Incidence rate difference","
-                                              Square root transformed incidence rate difference"))),
+                                           selectInput("Inci.ES", "Effect Estimate",
+                                              c("make a choice","Incidence rate ratio","Incidence rate difference",
+                                                "Square root transformed incidence rate difference"))),
                                          conditionalPanel(
                                            condition = "input.EStype == 'Event-Counts'",
                                            column(selectInput("x1i","the number of events (first group): ", "upload a  Dataset",width = "400px"),width = 2), 
@@ -112,19 +112,20 @@ navbarPage("Comparison of Statistical approaches for \n subgroup effect finding!
                                            column(selectInput("t2i","the total person-times (second group): ", "upload a  Dataset",width = "400px"),width = 2)
                                          ),
                                          conditionalPanel(condition = "input.EStype == 'Continuous'",
-                                           selectInput("ES", "Effect Estimate",
-                                                       c("Mean difference",
+                                           selectInput("Con.ES", "Effect Estimate",
+                                                       c("make a choice","Mean difference",
                                                          "Standardized mean difference",
                                                          "Standardized mean difference with heteroscedastic population variances"))),
                                          conditionalPanel(condition = "input.EStype == 'Continuous'",
-                                                           column(selectInput("m1i","the means (first group or time point) : ", "upload a  Dataset",width = "400px"),width = 2), 
-                                                           column(selectInput("sd1i","the standard deviations (first group or time point): ", "upload a  Dataset",width = "400px"),width = 2),
-                                                           column(selectInput("m2i","the means (second group or time point): ", "upload a  Dataset",width = "400px"),width = 2), 
-                                                           column(selectInput("sd2i","the standard deviations (second group or time point): ", "upload a  Dataset",width = "400px"),width = 2), 
-                                                           column(selectInput("mn1i","Group size A (n1i):", "upload a  Dataset",width = "400px"),width = 2), 
-                                                           column(selectInput("mn2i","Group size B (n2i):", "upload a  Dataset",width = "400px"),width = 2)
+                                                           column(selectInput("m1","the means (first group or time point) : ", "upload a  Dataset",width = "400px"),width = 2), 
+                                                           column(selectInput("sd1","the standard deviations (first group or time point): ", "upload a  Dataset",width = "400px"),width = 2),
+                                                           column(selectInput("m2","the means (second group or time point): ", "upload a  Dataset",width = "400px"),width = 2), 
+                                                           column(selectInput("sd2","the standard deviations (second group or time point): ", "upload a  Dataset",width = "400px"),width = 2), 
+                                                           column(selectInput("mn1","Group size A (n1i):", "upload a  Dataset",width = "400px"),width = 2), 
+                                                           column(selectInput("mn2","Group size B (n2i):", "upload a  Dataset",width = "400px"),width = 2)
                                                          )
-                                         ),
+                                         ),tabPanel("Escalculator",
+                                                    tableOutput("escalculator.summary")),
                                 tabPanel("Meta-analysis output", 
                                          selectInput("typeofmeta","Type of meta-analysis", c("Fixed-effect","Random-effects")),
                                          conditionalPanel("input.typeofmeta =='Random-effects'",
