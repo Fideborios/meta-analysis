@@ -1,0 +1,62 @@
+From:	S.le_Cessie@lumc.nl
+Sent:	14 January 2019 18:04
+To:	Hout, Joanna in 't
+Subject:	RE: meat-analysecursus
+Attachments:	cholesterol.dta; diuretic.dta; exercise 1.do; Exercise 1.R; Exercise 2.R; 
+exercise 3.do; Exercise 3.R; exercise2.do; MA script_LUMC course.R; MA 
+script_LUMC course_solutions.R; Practical MA in R.Rmd; 
+Practical_MA_in_R.pdf; Practicum metan 2018 for R.docx; Practicum metan 
+2018 v2.docx; Practicum metan 2018.docx; streptok.dta
+
+En last but not least: de practica.......
+
+Ik weet niet meer helemaal wat wat is hier, een promovendus heeft alles ook in 
+R uitgevoerd, er zijn verschillende versies, ik weet niet meer wat we 
+uiteindelijk gebruikt hebben.
+
+Laat het maar weten als je nog vragen hebt!
+
+Groeten
+
+saskia
+
+-----Oorspronkelijk bericht-----
+Van: Cessie, S. le (EPI) 
+Verzonden: maandag 14 januari 2019 17:59
+Aan: Joanna.intHout@radboudumc.nl
+Onderwerp: RE: meat-analysecursus
+
+Beste Joanna,
+
+Ik zal je een aantal mails met dingen sturen.
+1 Oorspronkelijke slides die we van Theo gekregen hebben (zijn heel goed, soms 
+wat technisch)
+2 Mijn slides
+3 Marta's slides
+4. We geven de cursus met Olaf Dekkers, hoogleraar endocrinologie en 
+epidemiologie die het vooral over de kwalitiet van meta analyses heeft en het 
+beoordelen van de artikelen, en met Karin van der Hoorn van de bibliotheek. 
+Hun materiaal heb ik niet snel bij de hand, maar ik kan het ook opzoeken als 
+je dat ook nodig hebt.
+5. materiaal van computerpractica
+
+Het programma zit bij deze mail.
+
+Groeten!
+
+Saskia
+
+-----Oorspronkelijk bericht-----
+Van: Goeman, J.J. (MSTAT) 
+Verzonden: maandag 14 januari 2019 10:09
+Aan: Fiocco, M. (MSTAT) <M.Fiocco@lumc.nl>; Cessie, S. le (EPI) 
+<S.le_Cessie@lumc.nl>
+CC: Joanna.intHout@radboudumc.nl
+Onderwerp: meat-analysecursus
+
+ Beste Marta en Saskia,
+
+Zoals ik vorige week zei gaat Joanna (cc) een meta-analyse cursus geven in 
+Nijmegen. Zouden jullie het Leidse cursusmateriaal met haar kunnen delen?
+
+Groeten, Jelle

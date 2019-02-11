@@ -28,11 +28,17 @@ log_RR=  log(RR)
 
 ## ------------------------------------------------------------------------
 FE = rma(data = dat, yi = yi , vi = vi, 
-         slab = author,# indicate which variable contains the names of the trials 
+         slab = paste(author, year),# indicate which variable contains the names of the trials 
          method = "FE")
 
-FE
 
+FE =  metabin(measure="RR", event.e =tpos,n.e = (tneg+tpos), event.c = cpos, n.c = (cneg+cpos), 
+              data = dat.bcg,studlab = paste(author, year) )
+
+forest(FE)
+
+dat$weights =  1/dat$vi
+ggscatter(data= dat, y =  "yi", x=0.2, size = "weights")
 
 ## ------------------------------------------------------------------------
 forest(FE, atransf = exp ,showweights = T)

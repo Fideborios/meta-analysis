@@ -1,0 +1,231 @@
+---
+title: "Practical Meta-analysis in R"
+author:
+- "Saskia le Cessie"
+- "Katerina Papadimitropoulou"
+date: "5 April 2018"
+output: beamer_presentation
+fontsize: 10pt
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+## R and R-studio 
+
+- R is a programming language, originally 'written' in 1992 by Ross Ihaka and Robert Gentleman (yes, "R" stems from the first letter of their first names), inspired by another programming language called S.
+
+- Throughout this practical you'll be encouraged to use R-studio. R-studio is a free, open-source "Integrated Development Environment" (IDE) for R (for Windows, Mac and Linux).
+
+-  Installing R-studio requires only two steps:
+     +  Download and install "base R" from the R project website: <https://cloud.r-project.org/>.
+     +  Download and install R-studio from the R-studio website <https://www.rstudio.com/products/rstudio/download/>.
+
+## Install and load libraries
+
+```{r, eval=FALSE, echo=TRUE}
+
+# load libraries
+install.packages(c("foreign", "metafor", "meta"))
+
+library(foreign)
+library(metafor)
+library(meta)
+
+# set your working directory
+setwd("D:/Meta-analysis course LUMC")
+```
+
+
+
+## EXERCISE I - Diuretic dataset
+
+```{r, eval=FALSE, echo=TRUE}
+# Load the dataset 
+diuretic = read.dta("diuretic.dta")
+
+# Take a look at the data 
+View(diuretic)
+```
+
+- There are two ways to calculate the (log) odds ratios 
+     +  Manually; fist calculating the number of healthy subjects (without pre-eclampsia)
+     +  Using "escalc" function in R 
+     
+```{r, message=F, warning=F}
+load(file="diuretic.RData")
+## load libraries
+library(foreign)
+library(metafor)
+library(meta)
+```
+
+```{r,echo=FALSE,message=FALSE,warning=FALSE}
+require(knitr)
+# Set so that long lines in R will be wrapped:
+opts_chunk$set(tidy.opts=list(width.cutoff=50),tidy=TRUE)
+```
+
+
+## EXERCISE I - Perform the MA 
+
+```{r, echo = TRUE}
+res1 = rma(yi, vi, data=diuretic, method="FE", measure="OR")
+res1
+```
+
+## Forestplot - Fixed effects analysis
+
+```{r diuretic}
+hc = with(diuretic,nc-pec)
+ht = with(diuretic,nt-pet)
+
+forest(res1, xlim=c(-16, 6), at=log(c(0.05, 0.25, 1, 4)), order = "obs", atransf=exp,
+       slab = diuretic$trialid, 
+       ilab = cbind(diuretic$pet, ht, diuretic$pec, hc),
+       ilab.xpos=c(-9.5,-8,-6,-4.5), cex=0.75, ylim=c(-1,12),
+       refline = res1$b)
+
+op <- par(cex=1, font=4)
+
+## switch to bold font
+par(font=2)
+
+### add column headings to the plot
+text(c(-9.5,-8,-6,-4.5), 11, c("pet+", "ht", "pec+", "hc"))
+text(c(-8.75,-5.25),     12, c("Treated", "Control"))
+text(-16,                11, "Study",  pos=4)
+text(6,                  11, "Odds Ratio [95% CI]", pos=2)
+
+
+## set par back to the original settings
+par(op)
+```
+
+## Random effects meta-analysis
+
+```{r, eval=FALSE, echo=TRUE}
+res2 = rma(yi, vi, data=diuretic, method="REML", measure="OR") # default 
+```
+
+Many iterarive and non-iterative approaches to estimate $\bold{\tau^2}$:
+
+\[
+\begin{aligned}
+Y_i & =\theta + \theta_{i} +\epsilon_{i} \\
+\theta_{i} & \sim N(0,\tau^2) \\
+\epsilon_{i} & \sim N(0, V_{i})
+\end{aligned}
+\]
+ 
+ - DL: DerSimonian-Laird (most commonly used)
+ - EB: Empirical Bayes 
+ - HE: Hedges
+ - Hs: Hunter-Schmidt
+ - ML: Maximum-likelihood 
+ - REML: Restricted maximum-likelihood (default)
+ - SJ: Sidik-Jonkman
+
+## EXERCISE II - Streptokinase dataset 
+```{r, message=F, warning=F}
+load(file="strep.RData")
+```
+Odds ratio as outcome - using function "metabin" from package meta
+
+```{r }
+h1 = with(strep,pop1-cases1)
+h0 = with(strep,pop0-cases0)
+
+res1 = metabin(cases1, h1, cases0, h0, data = strep, studlab = trialnam, sm="OR", method="MH", comb.random=TRUE)
+forest(res1,  order = "obs", atransf=exp,
+       slab = strep$trialnam, 
+       refline = res1$b)
+```
+
+##  Cumulative meta-analysis 
+
+```{r,  echo=TRUE}
+res4 = metacum(res1, sortvar=year, pooled="random")
+forest(res4) 
+```
+
+## EXERCISE III - cholesterol dataset 
+
+```{r, message=F, warning=F}
+load(file="chol.RData")
+```
+Fixed effects meta-analysis - Forestplot
+```{r}
+res1 = rma(yi=logor, vi=varlogor, data=chol , method="FE", measure="OR")
+forest(res1, atransf=exp,  slab = chol$trialname)
+```
+
+## Random effects meta-analysis 
+```{r}
+res2 = rma(yi=logor, vi=varlogor, data=chol , method="REML", measure="OR")
+res2
+```
+
+## Forestplot with prediction interval 
+
+```{r,  echo=TRUE}
+forest(res2,  atransf=exp,
+       slab = chol$trialname, addcred=TRUE, col=c("blue", "red"))
+```
+
+## Meta-regression
+ Cholesterol level reduction as covariate 
+
+```{r,  echo=FALSE}
+res4 = rma(y=logor, vi=varlogor, mods = ~ cholreduc , data=chol)
+
+forest(res4,  atransf=exp,
+       slab = chol$trialname)
+```
+
+## Meta-analytic Scatterplot
+Observed outcomes (ORs) vs individual studies plotted against cholreduc
+```{r,  echo=FALSE}
+wi = 1/sqrt(chol$varlogor)
+size = 0.5 + 3.0 * (wi - min(wi))/(max(wi) - min(wi))
+
+preds = predict(res4, transf=exp, newmods=c(0:2), digits=4)
+
+
+### plot the odds ratios against absolute latitude
+plot(chol$cholreduc, exp(chol$logor), pch=19, cex=size, 
+     xlab="Cholesterol reduction", ylab="Odds Ratio",
+     las=1, bty="l", log="y")
+
+### add predicted values (and corresponding CI bounds)
+lines(0:2, preds$pred)
+lines(0:2, preds$ci.lb, lty="dashed")
+lines(0:2, preds$ci.ub, lty="dashed")
+
+### dotted line at OR=1 (no difference between groups)
+abline(h=1, lty="dotted")
+
+
+### dotted line at OR=1 (no difference between groups)
+abline(h=1, lty="dotted")
+
+ids <- c(12,22,23,28)
+pos <- c(3,3,1,1)
+text(chol$cholreduc[ids], exp(chol$logor)[ids], ids, cex=0.9, pos=pos)
+```
+
+## Funnelplot
+```{r,  echo=FALSE}
+# Fit first a RE model without any covariates
+res2 = rma(yi=logor, vi=varlogor, data=chol , method="REML", measure="OR")
+
+### set up 2x2 array for plotting
+par(mfrow=c(2,2))
+
+# draw funnel plots
+funnel(res2, main="Standard Error")
+funnel(res2, yaxis="vi", main="Sampling Variance")
+funnel(res2, yaxis="seinv", main="Inverse Standard Error")
+funnel(res2, yaxis="vinv", main="Inverse Sampling Variance")
+```
