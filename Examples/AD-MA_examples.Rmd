@@ -14,19 +14,19 @@ opts_chunk$set(fig.width=9, fig.height=6, fig.path='Figs/',
 
 ```
 
-# Dichotomous outcome (Berkey et al. (1995))
+# Dichotomous outcome (Bassler et al. (2004))
 
 ## The Methods and Data 
 
-Berkey et al. (1995) describe the meta-analytic random- and mixed-effects models and provide the equation for the empirical Bayes estimator for the amount of (residual) heterogeneity (p. 398). The models and methods are illustrated with the BCG vaccine dataset (Colditz et al., 1994). 
+Bassler et al. (1995) describe the meta-analytic random- and mixed-effects models and provide the equation for the empirical Bayes estimator for the amount of (residual) heterogeneity (p. 398). The models and methods are illustrated with the BCG vaccine dataset (Colditz et al., 1994). 
 
 
 
-First, we load the package that contains the commands we will use later on. This can be done using the **library('name of the package')** command. The package that we will use is **metafor**. If the package is not installed in our computer we can use the **install.packages('name of the package')** command 
+First, we load the package that contains the commands we will use later on. This can be done using the **library('name of the package')** command. The package that we will use is **meta**. If the package is not installed in our computer we can use the **install.packages('name of the package')** command 
 
 ```{r}
-# install.packages('metafor')
-library(metafor)
+# install.packages('meta')
+library(meta)
 ```
 The data are provided in the package and can be loaded straight from it using their name **dat.bcg**.
 

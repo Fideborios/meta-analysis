@@ -9,7 +9,7 @@ data3 = read_xlsx(path = "Data/Data3.xlsx")
 head(data3)
 
 
-## Perform an inverse variance meta-analysis (as we did in previous lessons) 
+
 
 mc3 <- metacont(Ne, Me, Se, Nc, Mc, Sc, data=data3,sm = "MD",
                 studlab=paste(author, year))
@@ -35,7 +35,7 @@ mc3.sub <- metacont(Ne, Me, Se, Nc, Mc, Sc, data=data3,sm = "MD",
 mc3.sub
 
 ## Print the summary of our meta-analysis
-print(summary(mc3s), digits=2)
+print(summary(mc3.sub), digits=2)
 
 ### Plot the forest plot 
 
