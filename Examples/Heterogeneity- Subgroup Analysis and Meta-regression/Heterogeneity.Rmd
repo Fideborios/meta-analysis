@@ -22,7 +22,7 @@ opts_chunk$set(fig.width=9, fig.height=6, fig.path='Figs/',
 
 # Introduction
 
-Bassler et.al [@Bassler_2004] conducted a Cochrane Review to evaluate the effects of Ketotifen alone or in combination with other co=interventions in children with asthma and/or wheezing. The primary outcome was the reduction in use of rescue bronchodilators. Secondary clinical endpoints included physician's judgement on the overall efficacy of Ketotifen. 
+Bassler et.al [@Bassler_2004] conducted a Cochrane Review to evaluate the effects of Ketotifen alone or in combination with other co-interventions in children with asthma and/or wheezing. The primary outcome was the use of rescue bronchodilators.
 In the systematic review, a random effects model with the risk ratio as measure of treatment effect was used throughout. The meta-analysis of the clinical judgement data contains 10 trials. 
 
 Let's import the data in to start our analysis. In order to do that we have to call the *readxl* package using the library("readxl") command.  If a package is not installed in your computer you can install by using the *install.packages('name of the package')* command
@@ -42,17 +42,23 @@ head(Ketotifen,
      )
 ```
 
-Our assumption is that the treatment effects come from a larger distribution rather than a common effect. Therefore, since we want to generalise our conclusions to broader populations, we will perform a random=effect model. We will use the *meta* package. The primary function for dichotomous outcomes is *metabin()*
+Our assumption is that the treatment effects come from a distribution rather than from a common effect. We  want to generalise our conclusions to broader populations, therefore we will perform a random-effect model. We will use the *meta* package. The primary function for dichotomous outcomes is *metabin()*
 
 ```{r}
 library("meta")
 ```
 
-An easy way to check the help file of any package and/or functions is to use the *?* or  *??* and then the name of the function or package, for instance *??metabin*. *meta* package has an excellent help file, take advantage of it. 
-In your computer please fill the ... , in the following command with the appropriate variables from the data. 
+**Reminder: An easy way to check the help file of any package and/or functions is to use the *?* or  *??* and then the name of the function or package, for instance *??metabin*.** 
+*meta* package has an excellent help file, take advantage of it. 
 
-**Reminder**
-*We want to perform a random-effect meta-analysis with risk ratio as an effect size, using the empirical Bayes (EB) as a $\tau^2$ estimator*
+<br>
+
+<br>
+
+<br>
+
+
+In your computer please fill the ... , in the metabin command with the appropriate variables from the data. We want to perform a random-effects meta-analysis with risk ratio as an effect size measure, using the empirical Bayes (EB) as a $\tau^2$ estimator.
 
 ```{r  eval=FALSE}
 
@@ -65,14 +71,16 @@ res.RE = metabin(event.e = .. ,      ## Events of treated
                  method = ..,        ## weight calculation method
                  data = ..,          ## the data-set
                  studlab = ..,       ## The trial names
-                 method.tau=..       ## tau estimator method
-                 
+                 method.tau=..,      ## tau estimator method
+                 comb.fixed =...,    ## A logical (TRUE/FALSE) indicating whether a fixed or random  
+                 comb.random=...     ## effect meta-analysis should be conducted.
                  )
 
-forest(res.RE)
-
-
 ```
+
+
+Print the output and make a forest plot out of them. Also show the p-value of the overall treatment effect (**Hint: test.overall.random = TRUE**)
+
 
 ```{r echo=FALSE}
 
@@ -84,17 +92,31 @@ res.RE = metabin(event.e = Ee ,      ## Events of treated
                  method = "Inverse", ## weight calculation method
                  data = Ketotifen,   ## the data-set
                  studlab = study,    ## The trial names
-                 method.tau = "EB"
+                 method.tau = "EB",  ## tau estimator method
+                 comb.fixed = F
                  )
-
-
-
 
 ```
 
 
-**Interpret this output**
 
+```{r echo=FALSE, eval=FALSE}
+res.RE
+forest(....,             ## 
+       lab.e="....",     ##
+       lab.c="...",      ##
+       test.overall.random=TRUE)
+```
+
+**What is the Inverse-Variance method? Are there any other choices? If yes which?**
+
+<br>
+
+<br>
+
+<br>
+
+**Interpret the results**
 
 
 <br>
@@ -108,26 +130,10 @@ res.RE = metabin(event.e = Ee ,      ## Events of treated
 <br>
 
 <br>
-
-
-**What is our outcome?**
-
-<br>
-
-<br>
-
-<br>
-
-<br>
-
-<br>
-
-<br>
-
 
 
 **Does the Ketotifen help the patients?**
-
+**How much is the increase/decrease of the use of rescue bronchodilators ?**
 <br>
 
 <br>
@@ -141,10 +147,7 @@ res.RE = metabin(event.e = Ee ,      ## Events of treated
 <br>
 
 
-
-
-
-**Describe what Q , $I^2$ , $tau^2$  and H are and the report the estimated values**
+**Describe what Q , $I^2$ , $tau^2$  and H are and then report their estimated values**
 
 
 <br>
@@ -193,13 +196,13 @@ res.RE = metabin(event.e = Ee ,      ## Events of treated
 
 ## Subgroup analysis
 
-*Until now we 1) did a systematic review, 2) gathered the Ketotifen data, 3) conducted a meta-analysis, in order to find out whether the use of Ketotifen is beneficial or not and therefore 4) we pooled our treatment effects using a random-effects model, because we assumed that the treatment effects of the trials come from a greater distribution. Finally, we realised that there is significant heterogeneity, which justifies the random-effects assumption we made.*
+*Until now we 1) did a systematic review, 2) gathered the Ketotifen data, 3) conducted a meta-analysis, in order to find out whether the use of Ketotifen is beneficial or not and 4) we pooled our treatment effects using a random-effects model, because we assumed that the treatment effects of the trials come from a distribution.*
 
-This is one side of meta-analysis. Another is to investigate our data in order to understand where do these differences come from. We observed, that some trials had a common design. Particularly Chay et al., Rackham et al., and Van Asperen et al. used blinding method. We wonder if we can explain some heterogeneity, by splitting the trials into two meta-analyses. One for the blinded and one for not-blinded trials.
+This is one aim of meta-analysis. Another is to investigate our data in order to understand where do these between-study differences come from. We observed, that some trials had a common design. Particularly Chay et al., Rackham et al., and Van Asperen et al. used blinding. We wonder if we can explain some heterogeneity, by splitting the trials into two meta-analyses. One for the blinded and one for not-blinded trials.
 
-**Blinding is a trial characteristic not a patient characteristic, therefore we can perform subgroup analysis. If the categorical variable was a patient characteristic, for instance gender then we SHOULD not split the trial and perform a Subgroup analysis. We will discuss this case later on**
+**Blinding is a trial characteristic, not a patient characteristic, therefore we can perform subgroup analysis. If the categorical variable was a patient characteristic, for instance gender then we should NOT split the trial and then perform a subgroup analysis. We will discuss this case later on**
 
-This is easily done using the same function **metabin()**, but adding also the option **byvar**.
+TIn order to perform a subgroup analysis we use again the function **metabin()**, but adding also the option **byvar = "name of the subgrouping variable"**.
 
 
 ```{r eval=FALSE}
@@ -213,14 +216,16 @@ res.SA = metabin(event.e = .. ,      ## Events of treated
                  data = ..,          ## the data-set
                  studlab = ..,       ## The trial names
                  method.tau=..,      ## tau estimator method
-                 byvar = ..,         ## The splitting variable  
-                 comb.fixed = F      ## A logical variable (True/False) indicating 
-                                     ## whether a fixed effect meta-analysis should be conducted.
+                 comb.fixed =...,    ## A logical (TRUE/FALSE) indicating whether a fixed or random  
+                 comb.random=...,    ## effect meta-analysis should be conducted.
+                 byvar = ...         ## The splitting variable  
                  )
 
-forest(res.SA)
+
 
 ```
+
+Print the output and make a forest plot out of them. Also show the p-value of the overall treatment effect (**Hint: test.overall.random = TRUE**)
 
 
 ```{r echo=FALSE}
@@ -234,9 +239,10 @@ res.SA = metabin(event.e = Ee ,      ## Events of treated
                  data = Ketotifen,   ## the data-set
                  studlab = study,    ## The trial names
                  method.tau="EB",    ## tau estimator method
-                 byvar =  blind,     ## The splitting variable  
-                 comb.fixed = F      ## A logical variable (True/False) indicating 
-                                     ## whether a fixed effect meta-analysis should be conducted. 
+                 comb.fixed =F,    ## A logical (TRUE/FALSE) indicating whether a fixed or random  
+                 comb.random=T,    ## effect meta-analysis should be conducted.
+                 byvar = blind         ## The splitting variable  
+                 
                  )
 
 # forest(res.SA)
@@ -249,8 +255,14 @@ res.SA = metabin(event.e = Ee ,      ## Events of treated
 
 The subgroup analysis shows that method of blinding does not explain adequately the statistical heterogeneity between trials. *Why?*
 
+**Report the results for subgroups (random effects model) table (copy-paste)**
 
-**What are the values of $Q_{between}$, $I^2$ , H and $tau^2$ now?**
+<br>
+
+<br>
+
+
+**What are the values of $Q_{per subgroup}$, $I^2$ , H and $tau^2$ now? What do they represent?**
 
 <br>
 
@@ -262,7 +274,8 @@ The subgroup analysis shows that method of blinding does not explain adequately 
 
 <br>
 
-**Report the Test for subgroup differences**
+
+**Report the Test for subgroup differences (copy-paste). How should you interpret it? Discuss Q, d.f. and p-value.**
 
 <br>
 
@@ -277,7 +290,7 @@ The subgroup analysis shows that method of blinding does not explain adequately 
 
 \newpage
 
-Subgroup analysis has a lot in common with a meta-regression with a categorical independent variable. We can also perform a subgroup analysis in a "linear" meta-regression framework. Particularly, we can use the *metareg()* function to fit a meta-regression, using the log risk ratios as a dependent variable and the blinding as an independent one. The options takes need a *meta* object (the random effects meta-analysis we performed earlier is one) and the categorical variable we wish to use (in our case blinding). 
+Subgroup analysis has a lot in common with a meta-regression with a categorical independent variable. We can also perform a subgroup analysis in a "linear" meta-regression framework. Particularly, we can use the *metareg()* function to fit a meta-regression, using the log risk ratios as a dependent variable and the blinding as an independent one. The options need a *meta* object (the random effects meta-analysis we performed earlier is one) and the categorical variable we wish to use (in our case blinding). 
 
 
 **Fill the ....**
@@ -289,7 +302,7 @@ res.MR.SA =metareg(x = .... , ## an object of class meta
 
 
 
-Compare the subgroup analysis with the meta-regression output. There some minor differences, but this is due the fact that the $\tau^2$ within the blinded and unclear groups are different in subgroup analysis, while in meta-regression they are the same. If we choose the $\tau^2$ to be the same meta-regression is equal to the SA.
+Compare the subgroup analysis with the meta-regression output. There some minor differences, but this is due the fact that the $\tau^2$ within the blinded and unclear groups are different in subgroup analysis, while in meta-regression they are the same. If in the subgroup analysis we "force" the $\tau^2$s for both subgroups to be equal, then the results of the meta-regression are exactly the same as Subgroup analysis.
 
 ```{r eval=FALSE}
 
@@ -318,12 +331,9 @@ res.SA.2 = metabin(event.e = Ee ,      ## Events of treated
 
 In this section we will try to explain again part of the heterogeneity, but instead of using a categorical variable we will use a continuous. 
 
-We will use a meta-analysis of Colditz et al. [@Colditz_1994], where he evaluated the overall effectiveness of the Bacillus Calmette-Guerin vaccine against tuberculosis. In addition, covariates that may potentially influence the effect of vaccination were examined. 
+We will use the meta-analysis of Colditz et al. [@Colditz_1994], where he evaluated the overall effectiveness of the Bacillus Calmette-Guerin vaccine against tuberculosis. In addition, covariates that may potentially influence the effect of vaccination were examined. 
 
-
-
-**Note: we using again a variable that is a trial characteristic**
-
+**Note: we using AGAIN a variable that is a trial characteristic, not a patient characteristic**
 
 ```{r}
 library(metafor)
@@ -331,12 +341,12 @@ dat <- dat.colditz1994
 head(dat)
 ```
 
-We believe that part of our data heterogeneity can be due to the country's place on the world map. That is a resonable thing in epidemic, since the climate may affect the disease. Therefore, we will fit a meta-regression using the logRR as dependent variable and he absolute geographical latitude
+We believe that part of our data heterogeneity can be due to the country's place on the world map. That is a resonable thing in epidemic, since the climate may affect the disease. Therefore, we will fit a meta-regression using the logRR as dependent variable and he absolute geographical latitude.
+
+First, perform a random-effects meta-analysis and then fit a meta-regression using the absolute geographical latitude ("ablat") as a moderator. 
 
 
-
-
-```{r}
+```{r echo=FALSE}
 res.RE =  metabin(event.e = tpos,
                   n.e =  tpos+tneg ,
                   event.c =  cpos,
@@ -345,12 +355,29 @@ res.RE =  metabin(event.e = tpos,
                   studlab = paste(author, year), 
                   sm = "RR")
 
+
+res.RE.MR =metareg(x = res.RE , ## an object of class meta
+                  formula = ablat,
+                  hakn = T)
+
+```
+
+```{r echo=FALSE, eval=FALSE}
+
 res.RE
+
 ```
 
 
-```{r}
-res.RE.MR = metareg(res.RE, ablat)
+
+```{r eval=FALSE}
+
+res.RE.MR =metareg(x = .... , ## an object of class meta
+                  formula = ....,
+                  hakn = T)
+
+
+
 ```
 
 
