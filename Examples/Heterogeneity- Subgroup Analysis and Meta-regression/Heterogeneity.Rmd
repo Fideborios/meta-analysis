@@ -3,8 +3,8 @@ title: "Heterogeneity- Subgroup Analysis and Meta-Regression"
 author: "Michail Belias"
 date: "12 February 2019"
 output:
-  word_document: default
   pdf_document: default
+  word_document: default
   html_document:
     df_print: paged
 bibliography: citations.bib
@@ -51,11 +51,11 @@ library("meta")
 **Reminder: An easy way to check the help file of any package and/or functions is to use the *?* or  *??* and then the name of the function or package, for instance *??metabin*.** 
 *meta* package has an excellent help file, take advantage of it. 
 
-<br>
+\newline <br>    
 
-<br>
+\newline <br>        \newline
 
-<br>
+\newline <br>    
 
 
 In your computer please fill the ... , in the metabin command with the appropriate variables from the data. We want to perform a random-effects meta-analysis with risk ratio as an effect size measure, using the empirical Bayes (EB) as a $\tau^2$ estimator.
@@ -110,85 +110,85 @@ forest(....,             ##
 
 **What is the Inverse-Variance method? Are there any other choices? If yes which?**
 
-<br>
+\newline <br>    
 
-<br>
+\newline <br>    
 
-<br>
+\newline <br>    
 
 **Interpret the results**
 
 
-<br>
+\newline <br>    
 
-<br>
+\newline <br>    
 
-<br>
+\newline <br>    
 
-<br>
+\newline <br>    
 
-<br>
+\newline <br>    
 
-<br>
+\newline <br>    
 
 
 **Does the Ketotifen help the patients?**
 **How much is the increase/decrease of the use of rescue bronchodilators ?**
-<br>
+\newline <br>    
 
-<br>
+\newline <br>    
 
-<br>
+\newline <br>    
 
-<br>
+\newline <br>    
 
-<br>
+\newline <br>    
 
-<br>
+\newline <br>    
 
 
 **Describe what Q , $I^2$ , $tau^2$  and H are and then report their estimated values**
 
 
-<br>
+\newline <br>    
 
-<br>
+\newline <br>    
 
-<br>
+\newline <br>    
 
-<br>
+\newline <br>    
 
-<br>
+\newline <br>    
 
-<br>
+\newline <br>    
 
 **Do our data agree with the random-effects model assumption?**
 
-<br>
+\newline <br>    
 
-<br>
+\newline <br>    
 
-<br>
+\newline <br>    
 
-<br>
+\newline <br>    
 
-<br>
+\newline <br>    
 
-<br>
+\newline <br>    
 
 **Is the heterogeneity large?**
 
-<br>
+\newline <br>    
 
-<br>
+\newline <br>    
 
-<br>
+\newline <br>    
 
-<br>
+\newline <br>    
 
-<br>
+\newline <br>    
 
-<br>
+\newline <br>    
 
 
 
@@ -257,35 +257,35 @@ The subgroup analysis shows that method of blinding does not explain adequately 
 
 **Report the results for subgroups (random effects model) table (copy-paste)**
 
-<br>
+\newline <br>    
 
-<br>
+\newline <br>    
 
 
 **What are the values of $Q_{per subgroup}$, $I^2$ , H and $tau^2$ now? What do they represent?**
 
-<br>
+\newline <br>    
 
-<br>
+\newline <br>    
 
-<br>
+\newline <br>    
 
-<br>
+\newline <br>    
 
-<br>
+\newline <br>    
 
 
 **Report the Test for subgroup differences (copy-paste). How should you interpret it? Discuss Q, d.f. and p-value.**
 
-<br>
+\newline <br>    
 
-<br>
+\newline <br>    
 
-<br>
+\newline <br>    
 
-<br>
+\newline <br>    
 
-<br>
+\newline <br>    
 
 
 \newpage
@@ -383,29 +383,29 @@ res.RE.MR =metareg(x = .... , ## an object of class meta
 
 **Report the Test for Residual Heterogeneity and the Test for Moderators**
 
-<br>
+\newline <br>    
 
-<br>
+\newline <br>    
 
-<br>
+\newline <br>    
 
-<br>
+\newline <br>    
 
-<br>
+\newline <br>    
 
 
 
 **What are our conclusions?**
 
-<br>
+\newline <br>    
 
-<br>
+\newline <br>    
 
-<br>
+\newline <br>    
 
-<br>
+\newline <br>    
 
-<br>
+\newline <br>    
 
 We can also plot the effect estimates over the range of the absolute geographical latitude, so that we may have a visual represantion, using the *bubble()* command. See the help file (*??bubble.metareg*).
 
@@ -416,27 +416,27 @@ bubble(res.RE.MR)
 
 **Based on our model calculate the predicted logRR (and then RR) for Nijmegen (or any other city you like)**
 
-<br>
+\newline <br>    
 
-<br>
+\newline <br>    
 
-<br>
+\newline <br>    
 
-<br>
+\newline <br>    
 
-<br>
+\newline <br>    
 
 **What are the absolute geographical latitude ranges we can safely predict?** 
 
-<br>
+\newline <br>    
 
-<br>
+\newline <br>    
 
-<br>
+\newline <br>    
 
-<br>
+\newline <br>    
 
-<br>
+\newline <br>    
 
 
 \newpage
