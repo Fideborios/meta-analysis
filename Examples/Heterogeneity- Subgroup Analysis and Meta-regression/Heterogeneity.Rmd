@@ -1,5 +1,7 @@
 ---
-title: "Heterogeneity:  Subgroup Analysis and Meta-Regression"
+title: "BMS18 2018-2019 SR & MA" 
+subtitle: "Heterogeneity:  Subgroup Analysis and Meta-Regression"
+
 author: 
 - "Name: "
 - "Student number:"
@@ -14,9 +16,8 @@ bibliography: citations.bib
     
 ---
 
-**BMS18  2018-2019** 
 
-**Computer Session** 
+**Computer Assignment** 
 
 **Estimated time: 3 hours**
 
@@ -41,7 +42,12 @@ Upon completion of this assignment the student will be able to:
 *Instruction:* You can work alone or in couples.
 
 *Product:* The output, data files and written answers to the questions.
-We will discuss the output during the Working Group after this computer assignment.
+
+*NOTE:* At the end of the computer assignment, mail the results to "Michail.Belias@radboudumc.nl" for an evaluation. 
+
+We will discuss the outputassignment during the Working Group after this computer assignment.
+
+
 
 ##### \newpage
 
@@ -591,27 +597,27 @@ res.MR.SA =metareg(x = .... ,      ## an object of class meta
 ##### \newpage
 
 
-# Meta-regression with a continuous covariate
+# Meta-regression with a continuous dependent variable
 
-In this section we will try to explain again part of the heterogeneity, but instead of using a categorical variable we will use a continuous. 
+In this section we will try to explain again part of the heterogeneity, but instead of using a categorical variable we will use a continuous dependent variable. 
 
 We will use the meta-analysis of Colditz et al. [@Colditz_1994], where he evaluated the overall effectiveness of the Bacillus Calmette-Guerin vaccine against tuberculosis. In addition, covariates that may potentially influence the effect of vaccination were examined. 
 
-**Note: we using AGAIN a variable that is a study characteristic, not a patient characteristic**
+**Note: we are using AGAIN a variable that is a study characteristic, not a patient characteristic**
 
-```{r echo=FALSE}
-library(metafor)
-dat <- dat.colditz1994
-View(dat)
+We can use the Colditz data straight from the metafor package without loading it, with "::".
+
+```{r }
+
+dat <- metafor::dat.colditz1994
+
 ```
 
-```{r echo=FALSE, eval=F}
-detach("package:metafor", unload=TRUE)
-```
+We believe that part of the between-study heterogeneity can be due to the country’s place on the world map. That is a reasonable thing in epidemics, since the climate may affect the disease characteristics (prevalence, transmissibility, etc). Therefore, we will fit a meta-regression using the logRR as dependent variable and he absolute geographical latitude as an independent.
 
-We believe that part of our data heterogeneity can be due to the country's place on the world map. That is a reasonable thing in epidemics, since the climate may effect the disease characteristics (prevalence, transmissibility, etc). Therefore, we will fit a meta-regression using the logRR as dependent variable and he absolute geographical latitude as an independent.
+First, perform a random-effects meta-analysis, with Empirical Bayes(sometime called Paule-Mandel) $\tau^2$ estimate and then fit a meta-regression using the absolute geographical latitude ("ablat") as a independent variable. 
 
-First, perform a random-effects meta-analysis, with DerSimonian-Laird $\tau^2$ estimate and then fit a meta-regression using the absolute geographical latitude ("ablat") as a independent variable. 
+**Another commonly used $\tau^2$ estimator is DerSimonian-Laird. Fit the meta-regression with DL too**
 
 ```{r eval=FALSE}
 
@@ -700,7 +706,7 @@ res.RE
 
 Google the absolute geographical latitude of Nijmegen (or any other city you like).
 
-**Based on our model calculate the predicted logRR (and then RR) for Nijmegen (or any other city you like)**
+**Based on our model calculate the predicted logRR and the corresponding 95% CI  for Nijmegen (or any other city you like). Transform the results into estimates for the RR.**
 
 \newline <br>    
 
@@ -726,7 +732,7 @@ Google the absolute geographical latitude of Nijmegen (or any other city you lik
 
 
 
-We can also plot the effect estimates over the range of the absolute geographical latitude, so that we may have a visual representation, using the *bubble()* command. See the help file (*??bubble.metareg*).
+We can also plot the effect estimates over the range of the absolute geographical latitude, so that we have a visual representation, using the *bubble()* command. See the help file (*??bubble.metareg*).
 
 ```{r}
 bubble(res.RE.MR)
